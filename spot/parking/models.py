@@ -1,13 +1,30 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission  # Import Group and Permission
+from django.db import models
 
-# Custom User model
 class User(AbstractUser):
     user_id = models.AutoField(primary_key=True)
     role = models.CharField(max_length=50)
     full_name = models.CharField(max_length=100)
     contact_number = models.CharField(max_length=15)
     email = models.EmailField(unique=True)
+
+    # Override groups and user_permissions with unique related_names
+    groups = models.ManyToManyField(
+        Group,
+        related_name="custom_user_groups",  # Add unique related_name
+        blank=True,
+        help_text="The groups this user belongs to.",
+        verbose_name="groups",
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name="custom_user_permissions",  # Add unique related_name
+        blank=True,
+        help_text="Specific permissions for this user.",
+        verbose_name="user permissions",
+    )
+
 
 class ParkingPlace(models.Model):
     place_id = models.AutoField(primary_key=True)
