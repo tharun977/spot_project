@@ -1,12 +1,11 @@
 import React from "react";
-import UserForm from "./components/UserForm";
-import ParkingBooking from "./components/ParkingBooking";
+import AuthForm from "./components/AuthForm";
 
 function App() {
   return (
     <div className="App">
-      <UserForm />
-      <ParkingBooking />
+      <h1>SPOT: Smart Parking Organisation Tool</h1>
+      <AuthForm />
     </div>
   );
 }

@@ -1,11 +1,13 @@
 from rest_framework import generics
+from rest_framework.generics import CreateAPIView
+from .serializers import UserSerializer, ParkingPlaceSerializer, ParkingLotSerializer , ParkingDetailsSerializer , PaymentSerializer  
 from .models import User, ParkingPlace, ParkingLot, ParkingDetails, Payment, Log, VehicleType
 from .serializers import (
     UserSerializer, ParkingPlaceSerializer, ParkingLotSerializer,
     ParkingDetailsSerializer, PaymentSerializer, LogSerializer, VehicleTypeSerializer
 )
 
-class UserListCreateView(generics.ListCreateAPIView):
+class UserListCreateView(CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -32,3 +34,11 @@ class PaymentListCreateView(generics.ListCreateAPIView):
 class LogListCreateView(generics.ListCreateAPIView):
     queryset = Log.objects.all()
     serializer_class = LogSerializer
+
+class UserListCreateView(CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class ParkingPlaceListView(ListAPIView):
+    queryset = ParkingPlace.objects.all()
+    serializer_class = ParkingPlaceSerializer

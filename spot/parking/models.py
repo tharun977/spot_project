@@ -33,11 +33,17 @@ class ParkingPlace(models.Model):
     capacity = models.IntegerField()
     status = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.place_name
+
 class ParkingLot(models.Model):
     lot_id = models.AutoField(primary_key=True)
-    place = models.ForeignKey(ParkingPlace, on_delete=models.CASCADE)
+    place = models.ForeignKey(ParkingPlace, on_delete=models.CASCADE, related_name="parking_lots")
     status_before = models.CharField(max_length=50)
     status_after = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"Lot {self.lot_id} at {self.place}"
 
 class VehicleType(models.Model):
     vehicle_type_id = models.AutoField(primary_key=True)
