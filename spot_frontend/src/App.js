@@ -3,7 +3,7 @@ import AuthForm from "./components/AuthForm";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <h1>SPOT: Smart Parking Organisation Tool</h1>
       <AuthForm />
     </div>

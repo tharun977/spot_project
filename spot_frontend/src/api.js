@@ -1,10 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
-const BASE_URL = "http://127.0.0.1:8000/api"; // Replace with deployed backend URL
+const BASE_URL = 'http://127.0.0.1:8000/api';
 
-export const api = axios.create({
-  baseURL: BASE_URL,
-});
+export const api = axios.create({ baseURL: BASE_URL });
 
-export const loginUser = (data) => api.post("/users/login/", data); // Add login endpoint
-export const registerUser = (data) => api.post("/users/", data);
+export const registerUser = (data) => api.post('/users/', data);
+export const getParkingPlaces = () => api.get('/parking-places/');

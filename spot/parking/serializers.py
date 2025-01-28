@@ -1,36 +1,39 @@
 from rest_framework import serializers
-from .models import User, ParkingPlace, ParkingLot, Payment  # Make sure all models are imported
+from .models import User, ParkingPlace, ParkingLot, ParkingDetails, Payment, Log
 
-class ParkingLotSerializer(serializers.ModelSerializer):
+
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ParkingLot
-        fields = '__all__'
+        model = User
+        fields = ['username', 'password', 'email', 'full_name', 'role']
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def validate_role(self, value):
+        if value not in ['user', 'admin']:
+            raise serializers.ValidationError("Role must be either 'user' or 'admin'.")
+        return value
 
 class ParkingPlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = ParkingPlace
         fields = '__all__'
 
-class UserSerializer(serializers.ModelSerializer):
+class ParkingLotSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['id', 'username', 'password', 'email', 'full_name']
-        extra_kwargs = {
-            'password': {'write_only': True},
-        }
+        model = ParkingLot
+        fields = '__all__'
 
-    def create(self, validated_data):
-        user = User.objects.create(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            full_name=validated_data['full_name']
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
+class ParkingDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ParkingDetails
+        fields = '__all__'
 
-# Define PaymentSerializer if needed
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Payment  # Replace with your actual Payment model
-        fields = '__all__'  # Adjust the fields as necessary
+        model = Payment
+        fields = '__all__'
+
+class LogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Log
+        fields = '__all__'
